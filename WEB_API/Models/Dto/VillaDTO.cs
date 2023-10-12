@@ -8,6 +8,8 @@ namespace WEB_API.Models.Dto
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }
+        public int sqft { get; set; }
+        public int Occupancy { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }
