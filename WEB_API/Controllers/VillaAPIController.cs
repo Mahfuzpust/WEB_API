@@ -10,6 +10,7 @@ namespace WEB_API.Controllers
     [Route("api/[controller]")]
     public class VillaAPIController : ControllerBase
     {
+        //Get Method
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<VillaDTO>> GetVillas()
@@ -17,6 +18,7 @@ namespace WEB_API.Controllers
             return Ok(VillaStore.VillaList);
         }
 
+        //Get with Id
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -33,6 +35,23 @@ namespace WEB_API.Controllers
                 return NotFound();
             }
             return Ok(villa);
+        }
+
+        //Post Method
+        [HttpPost]
+        public ActionResult<VillaDTO> CreateVilla([FromBody]VillaDTO villaDTO)
+        {
+            if(villaDTO == null)
+            {
+                return BadRequest(villaDTO);
+            }
+            if (villaDTO.Id > 0)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            villaDTO.Id = VillaStore.VillaList.OrderByDescending(u => u.Id).FirstOrDefault().Id+1;
+            VillaStore.VillaList.Add(villaDTO);
+            return Ok(villaDTO);
         }
     }
 }
