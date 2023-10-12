@@ -5,9 +5,10 @@ using WEB_API.Models.Dto;
 
 namespace WEB_API.Controllers
 {
-    [ApiController]
+    
     //[Route("api/VillaAPI")]
     [Route("api/[controller]")]
+    [ApiController]
     public class VillaAPIController : ControllerBase
     {
         //Get Method
@@ -19,7 +20,7 @@ namespace WEB_API.Controllers
         }
 
         //Get with Id
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name ="GetVilla")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -39,9 +40,17 @@ namespace WEB_API.Controllers
 
         //Post Method
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<VillaDTO> CreateVilla([FromBody]VillaDTO villaDTO)
         {
-            if(villaDTO == null)
+            if(VillaStore.VillaList.FirstOrDefault(u => u.Name.ToLower() == villaDTO.Name.ToLower()) !=null)
+            {
+                ModelState.AddModelError("CustomError", "Villa already Exists!");
+                return BadRequest(ModelState);
+            }
+            if (villaDTO == null)
             {
                 return BadRequest(villaDTO);
             }
@@ -51,7 +60,7 @@ namespace WEB_API.Controllers
             }
             villaDTO.Id = VillaStore.VillaList.OrderByDescending(u => u.Id).FirstOrDefault().Id+1;
             VillaStore.VillaList.Add(villaDTO);
-            return Ok(villaDTO);
+            return CreatedAtRoute("GetVilla", new { id = villaDTO.Id }, villaDTO);
         }
     }
 }

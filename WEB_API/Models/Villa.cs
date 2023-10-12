@@ -1,4 +1,6 @@
-﻿namespace WEB_API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WEB_API.Models
 {
     public class Villa
     {
