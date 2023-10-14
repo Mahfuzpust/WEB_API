@@ -53,5 +53,11 @@ namespace WEB_API.Repository
         {
             await _db.SaveChangesAsync();
         }
+
+        public async Task UpdateAsync(Villa entity)
+        {
+            _db.Villas.Update(entity);
+            await SaveAsync();
+        }
     }
 }
