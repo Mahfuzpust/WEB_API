@@ -1,0 +1,66 @@
+﻿@model VillaWEB.Models.Dto.VillaDTO
+
+<form asp-action="DeleteVilla" method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-3">
+            <h2 class=""> Delete Villa</h2>
+            <hr />
+        </div>
+        <input hidden asp-for="Id" />
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <div class="row mb-1 p-1">
+            <label asp-for="Name" class="p-0 mb-0"></label>
+            <input asp-for="Name" readonly="readonly" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-1 p-1">
+            <label asp-for="Rate" class="p-0 mb-0"></label>
+            <input asp-for="Rate" readonly="readonly" class="form-control" />
+            <span asp-validation-for="Rate" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-1 p-1">
+            <label asp-for="Details" class="p-0 mb-0"></label>
+            <textarea asp-for="Details" readonly="readonly" class="form-control"></textarea>
+            <span asp-validation-for="Details" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-1 p-1">
+            <label asp-for="ImageUrl" class="p-0 mb-0"></label>
+            <input asp-for="ImageUrl" readonly="readonly"  class="form-control" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-1 p-1">
+            <label asp-for="Occupancy" class="p-0 mb-0"></label>
+            <input asp-for="Occupancy" readonly="readonly" class="form-control" />
+            <span asp-validation-for="Occupancy" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-1 p-1">
+            <label asp-for="Sqft" class="p-0 mb-0"></label>
+            <input asp-for="Sqft" readonly="readonly" class="form-control" />
+            <span asp-validation-for="Sqft" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-1 p-1">
+            <label asp-for="Amenity" class="p-0 mb-0"></label>
+            <input asp-for="Amenity" readonly="readonly" class="form-control" />
+            <span asp-validation-for="Amenity" class="text-danger"></span>
+        </div>
+
+        <div class="form-group ">
+            <button class="btn btn-danger" type="submit" style="width:150px">Delete</button>
+            <a asp-action="IndexVilla" asp-controller="Villa" class="btn btn-secondary" style="width:150px">Back To List</a>
+        </div>
+
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
