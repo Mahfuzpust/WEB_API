@@ -17,6 +17,7 @@ namespace VillaWEB.Controllers
 			_mapper = mapper;
 		}
 
+		//Get Method
 		public async Task<IActionResult> IndexVilla()
 		{
 			List<VillaDTO> list = new();
@@ -27,6 +28,27 @@ namespace VillaWEB.Controllers
 				list = JsonConvert.DeserializeObject<List<VillaDTO>>(Convert.ToString(response.Result));
 			}
 			return View(list);
+		}
+
+		//POST Method
+		public async Task<IActionResult> CreateVilla()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> CreateVilla(VillaCreateDTO model)
+		{
+			if(ModelState.IsValid)
+			{
+				var response = await _villaService.CreateAsync<APIResponse>(model);
+				if (response != null && response.IsSuccess)
+				{
+					return RedirectToAction("IndexVilla");
+				}
+			}
+			return View();
 		}
 	}
 }
