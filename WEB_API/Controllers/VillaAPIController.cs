@@ -11,8 +11,8 @@ using WEB_API.Repository.IRepository;
 namespace WEB_API.Controllers
 {
     
-    //[Route("api/VillaAPI")]
-    [Route("api/[controller]")]
+    [Route("api/VillaAPI")]
+    //[Route("api/[controller]")]
     [ApiController]
     public class VillaAPIController : ControllerBase
     {

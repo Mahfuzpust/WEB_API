@@ -1,10 +1,16 @@
 using VillaWEB;
+using VillaWEB.Services.IServices;
+using VillaWEB.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MappingConfig));
+
+builder.Services.AddHttpClient<IVillaService, VillaService>();
+builder.Services.AddScoped<IVillaService, VillaService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
